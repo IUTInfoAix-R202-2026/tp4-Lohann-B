@@ -72,12 +72,11 @@ public class FormulaireConnexionViewModel {
     // - échec : "Identifiants incorrects. Vérifiez votre saisie."
 
     statutProperty().set("Connexion en cours");
-    try {
-      serviceAuth.connecter(identifiant.getValue(), motDePasse.getValue());
-    } catch (Exception e) {
-      statut.set("Identifiants incorrects. Vérifiez votre saisie.");
-    } finally {
+
+    if (serviceAuth.connecter(identifiant.getValue(), motDePasse.getValue())) {
       statut.set("Bienvenue " + identifiant.getValue() + " !");
+    } else {
+      statut.set("Identifiants incorrects. Vérifiez votre saisie.");
     }
   }
 }
